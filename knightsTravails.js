@@ -24,12 +24,22 @@ const createBoard = (size = 8) => {
 // Creates knight
 
 // All possible moves a knight could make
-const possibleMoves = [
-    [-2,-1], [-2,1],
-    [-1, 2], [-1, -2],
-    [2, -1], [2, 1],
-    [1, 2], [1, -2] 
-]
+const validMove = (row, col) => {
+    return row >= 0 && row < size && col >= 0 && col < size;
+}
+
+const getPossiblePath = (row, col) => {
+    const possibleMoves = [
+        [-2,-1], [-2,1],
+        [-1, 2], [-1, -2],
+        [2, -1], [2, 1],
+        [1, 2], [1, -2] 
+    ];
+    
+    return possibleMoves.map(coord => [row + coord[0], col + coord[1]])
+    .filter(coord => validMove(coord[0], coord[1]));
+}
+
 
 // Creates knight move
 const knightMove = (start, end) => {
